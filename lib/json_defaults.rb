@@ -1,11 +1,41 @@
 require "json_defaults/version"
-module JsonDefaults
-  
-  def json_defaults(base_field, options={})
-    define_json_methods(base_field, options)
-  end
+require "json_defaults/active_record" if defined?(Rails)
 
+module JsonDefaults
+
+  def json_defaults(field: nil, options: {}, active_record: false)
+    define_json_methods(field, options)
+    set_default_options(field, options) if active_record
+  end
+  
   private 
+
+  # def set_default_options field, options
+  #   after_initialize do |model|
+  #     if model.class.columns_hash[field].type == :json
+  #       if model.send(field).blank?
+  #         model.send("#{field}=", options.each {|key, value| options[key] = value.is_a?(Hash) && value.has_key?(:value) ? value[:value] : value})
+  #       else
+  #         options.each do |key, value|
+  #           have_key = model.send(field).key?(key.to_s)
+  #           if !have_key 
+  #             default_value = value.is_a?(Hash) && value.has_key?(:value) ? value[:value] : value
+  #             model.send(field)[key] = default_value
+  #           else
+  #             model_value = model.send(field)[key.to_s]
+  #             if model_value.is_a?(Hash) && !((value.keys - model_value.symbolize_keys.keys).count == 0)
+  #               model.send(field)[key.to_s] = {
+  #                 **value.symbolize_keys,
+  #                 **model_value.symbolize_keys
+  #               }
+  #             end
+  #           end
+  #         end   
+  #       end
+  #       model.save if !model.changes.blank?
+  #     end
+  #   end
+  # end
 
   def define_json_methods(base_field, options)
     options.each do |field, defaults|
@@ -21,7 +51,7 @@ module JsonDefaults
         val[field]
       else
         if defaults.is_a?(Hash) && defaults.has_key?(:value)
-          defaults[:value]
+          return defaults[:value]
         else
           return defaults
         end
