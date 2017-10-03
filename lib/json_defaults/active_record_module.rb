@@ -1,6 +1,5 @@
 module JsonDefaults
-  module ActiveRecordModule
-    private 
+    private
       def set_default_options field, options
         after_initialize do |model|
           if model.class.columns_hash[field].type == :json
@@ -27,5 +26,4 @@ module JsonDefaults
           end
         end
       end
-  end
 end
