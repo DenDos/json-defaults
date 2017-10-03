@@ -1,7 +1,8 @@
 require "json_defaults/version"
-require "json_defaults/active_record" if defined?(Rails)
+require "json_defaults/active_record_module"
 
 module JsonDefaults
+  extend ActiveRecordModule
 
   def json_defaults(field: nil, options: {}, active_record: false)
     define_json_methods(field, options)
