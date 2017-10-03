@@ -4,6 +4,7 @@ require "json_defaults/active_record_module"
 module JsonDefaults
 
   def json_defaults(field: nil, options: {}, active_record: false)
+    options = options.stringify_keys
     define_json_methods(field, options)
     set_default_options(field, options) if active_record
   end
