@@ -2,7 +2,7 @@ module JsonDefaults
     private
       def set_default_options field, options
         after_initialize do |model|
-          if model.class.columns_hash[field].type == :json
+          if model.class.columns_hash[field].type == :json || model.class.columns_hash[field].type == :jsonb
             if model.send(field).blank?
               model.send("#{field}=", options.each {|key, value| options[key] = value.is_a?(Hash) && value.has_key?(:value) ? value[:value] : value})
             else
