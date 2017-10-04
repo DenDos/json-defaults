@@ -49,6 +49,7 @@ And next just use defined fields with default options
 
 ```ruby
 user = User.new
+user.json_field # => {"field1"=>"It's", "field2"=>"awesome"}
 user.field1 # => It's
 user.field2 # => awesome
 ```
@@ -91,41 +92,6 @@ user.field4 # => 666
 user.field4 = "123" 
 user.field4 # => 123
 ```
-- If you want to save all default data in database, just add:
-```ruby
-active_record: true
-```
-
-For example: 
-
-```ruby
-class User < ActiveRecord::Base
-  extend JsonDefaults
-  
-  json_defaults(
-    field: "json_field", 
-    active_record: true,
-    options: {
-      field1: "It's",
-      field2: "awesome"
-      field3: {
-        value: 666,
-        integer: true
-      }
-    }
-  )
-end
-```
-
-Now default options will be saved in your model.
-
-```ruby
-user = User.new
-user.json_field # => {"field1"=>"It's", "field2"=>"awesome", "field3"=>666}
-user.field1 # => It's
-user.field2 # => awesome
-user.field3 # => 666
-```
 
 ### Options for defining field
 
@@ -146,6 +112,6 @@ user.field3 # => 666
 | Option | type | Description |
 | :--- | :--- | :--- |
 | `field` |String| This parameter specifies which field in the model the json_defaults plugin will be applied to. |
-| `options` |Hash| Default hash for selected field with keys and values |
-| `active_record` |Boolean| Default: ```false```. Specifies whether the default field is written to the database|
+| `options` |Hash| Default hash for selected field with ```key``` and ```value``` |
+| `key` || Key's name in default hash. Can be ```string``` or ```symbol```|
 
