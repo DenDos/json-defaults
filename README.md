@@ -126,3 +126,25 @@ user.field1 # => It's
 user.field2 # => awesome
 user.field3 # => 666
 ```
+
+### Options for defining field
+
+```ruby
+  json_defaults(
+    field: "json_field", 
+    active_record: true,
+    options: {
+      key: "value",
+      key: {
+        value: 666,
+        integer: true
+      }
+    }
+  )
+```
+
+| Option | type | Description |
+| :--- | :--- | :--- |
+| `field` |String| This parameter specifies which field in the model the json_defaults plugin will be applied to. |
+| `options` |Hash| Default hash for selected field with keys and values |
+
