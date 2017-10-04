@@ -147,4 +147,5 @@ user.field3 # => 666
 | :--- | :--- | :--- |
 | `field` |String| This parameter specifies which field in the model the json_defaults plugin will be applied to. |
 | `options` |Hash| Default hash for selected field with keys and values |
+| `active_record` |Boolean| Default: ```false```. Specifies whether the default field is written to the database|
 
