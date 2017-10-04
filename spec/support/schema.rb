@@ -5,4 +5,10 @@ ActiveRecord::Schema.define do
     t.jsonb :params
     t.timestamps
   end
+
+  create_table :user_with_names, :force => true do |t|
+    t.string :name, default: 'test'
+    t.jsonb :params
+    t.timestamps
+  end
 end
