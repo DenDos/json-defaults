@@ -27,7 +27,7 @@ module JsonDefaults
           if defaults.is_a?(Hash) && defaults.has_key?(:value)
             return defaults[:value]
           else
-            return defaults
+            return defaults.is_a?(Hash) ? defaults.stringify_keys : defaults
           end
         end
       end
@@ -66,24 +66,28 @@ module JsonDefaults
     end
 
     def set_default_options field, options
+
       after_initialize do |model|
         if model.send(field).blank?
           model.send("#{field}=", options.each {|key, value| options[key] = value.is_a?(Hash) && value.has_key?(:value) ? value[:value] : value})
         else
+
           options.each do |key, value|
             have_key = model.send(field).key?(key.to_s)
+
             default_value = value.is_a?(Hash) && value.has_key?(:value) ? value[:value] : value
-            model_value = model.send(field).try(:[], key.to_s)
+            default_value = default_value.stringify_keys if default_value && default_value.is_a?(Hash)
+
+            model_value = model.send(field).try(:[], key.to_s).try(:stringify_keys)
 
             if !have_key 
               model.send(field)[key] = default_value
             elsif have_key && model_value.is_a?(Hash)
               model.send(field)[key] = default_value.merge(model_value)
             end
-
+            
           end   
         end
       end
     end
-
 end
