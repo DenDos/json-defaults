@@ -19,6 +19,8 @@ module JsonDefaults
     end
 
     def define_getter base_field, field, defaults
+      return if self.attribute_names.include?(field)
+      
       define_method field do
         val = send base_field
         if val && val.is_a?(Hash) && val.has_key?(field)
@@ -42,6 +44,8 @@ module JsonDefaults
     end
 
     def define_setter base_field, field, defaults
+      return if self.attribute_names.include?(field)
+
       define_method "#{field}=" do |val|
         object_value = send base_field
         unless val && val.is_a?(Hash)
@@ -85,7 +89,7 @@ module JsonDefaults
             elsif have_key && model_value.is_a?(Hash)
               model.send(field)[key] = default_value.merge(model_value)
             end
-            
+
           end   
         end
       end
