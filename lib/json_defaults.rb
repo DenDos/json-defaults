@@ -5,7 +5,7 @@ module JsonDefaults
   def json_defaults(field: nil, options: {}, active_record: false)
     options = options.stringify_keys
     define_json_methods(field, options)
-    if defined?(ActiveRecord::Base) && self.class.ancestors.include?(ActiveRecord::Base)
+    if defined?(ActiveRecord::Base) && self.ancestors.include?(ActiveRecord::Base)
       set_default_options(field, options) 
     end
   end
