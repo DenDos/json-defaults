@@ -4,14 +4,14 @@ require 'json_defaults'
 require 'support/shared_examples.rb'
 
 ActiveRecord::Base.establish_connection adapter: "postgresql"
-require 'support/model' 
+require 'support/models' 
 
 
 RSpec.describe "Json Defaults" do
   let(:user) { User.create() }
 
   context "valid" do
-
+    
     it { expect(user.valid?).to eq(true) }
 
     it_behaves_like "has valid getters"
@@ -76,6 +76,13 @@ RSpec.describe "Json Defaults" do
       it_behaves_like "has valid getters"
       
       it { expect(user.params['test']).to eq('test') }
+    end
+
+    context "user with name" do
+      let(:user) { UserWithName.create() }
+
+      it { expect(user.name).to eq('test') }
+
     end
     
   end
