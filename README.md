@@ -98,7 +98,6 @@ user.field4 # => 123
 ```ruby
   json_defaults(
     field: "json_field", 
-    active_record: true,
     options: {
       key: "value",
       key: {
