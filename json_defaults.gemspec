@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["cotoha92@gmail.com"]
 
   spec.summary       = %q{Create default structure for jsonb field}
-  spec.description   = %q{DEEEEEESSSSSCCCCRIRRRRRIIIIIPPPPTIOOOOONNNNN}
+  spec.description   = %q{https://github.com/DenDos/json-defaults}
   spec.homepage      = ""
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
